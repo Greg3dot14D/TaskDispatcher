@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/side_background"
+    >
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        >
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/e_TaskName_Label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.2"
+                android:layout_marginLeft="5dp"
+                android:textSize="20dp"
+                android:text="Задача" />
+            <EditText
+                android:id="@+id/e_TaskName_Input"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.8"
+                android:textSize="20dp"
+                android:inputType="textPersonName"
+                android:text="В" />
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:id="@+id/e_StartDate_Row">
+            <TextView
+                android:id="@+id/e_StartDate_Label"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="0.2"
+                android:layout_marginLeft="5dp"
+                android:textSize="20dp"
+                android:text="Начало" />
+            <TextView
+                android:id="@+id/e_StartDate_Input"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="0.8"
+                android:textSize="20dp"
+                android:inputType="textPersonName"
+                android:text="01.01.2017" />
+            <TextView
+                android:id="@+id/e_StartTime_Input"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="0.8"
+                android:textSize="20dp"
+                android:inputType="textPersonName"
+                android:text="01:01:01" />
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/e_EndDate_Row">
+            <TextView
+                android:id="@+id/e_EndDate_Label"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="0.2"
+                android:layout_marginLeft="5dp"
+                android:textSize="20dp"
+                android:text="Окончание" />
+            <TextView
+                android:id="@+id/e_EndDate_Input"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="0.8"
+                android:textSize="20dp"
+                android:inputType="textPersonName"
+                android:text="01.01.2017" />
+            <TextView
+                android:id="@+id/e_EndTime_Input"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="0.8"
+                android:textSize="20dp"
+                android:inputType="textPersonName"
+                android:text="01:01:01" />
+        </TableRow>
+    </TableLayout>
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="60dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="0.95"
+            android:gravity="bottom">
+
+            <Button
+                android:id="@+id/e_Save_Button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="0.04"
+                android:text="Save" />
+
+            <Button
+                android:id="@+id/e_Cancel_Button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="0.04"
+                android:text="Cancel" />
+        </TableRow>
+    </TableLayout>
+ </LinearLayout>

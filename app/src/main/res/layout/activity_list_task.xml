@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0.79"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:id="@+id/g_TL_TaskList">
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp">
+            <TextView
+                android:id="@+id/tl_Title"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+
+                android:text="Список задач"
+                android:textSize="20dp"
+                android:textStyle="bold"/>
+        </TableRow>
+        <GridView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/gvTaskList">
+        </GridView>
+    </TableLayout>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginBottom="25px"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp">
+
+        <Button
+            android:id="@+id/tl_add_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="0.04"
+            android:text="+" />
+
+
+        <Button
+            android:id="@+id/tl_edit_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.04"
+            android:layout_marginRight="5dp"
+            android:layout_marginLeft="5dp"
+            android:text="Edit" />
+        <Button
+            android:id="@+id/tl_del_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.04"
+            android:layout_marginRight="5dp"
+            android:layout_marginLeft="5dp"
+            android:text="-" />
+    </TableRow>
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginBottom="25px"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp">
+
+        <Button
+            android:id="@+id/tl_start_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.04"
+            android:layout_marginRight="5dp"
+            android:layout_marginLeft="5dp"
+            android:text="Start" />
+
+        <Button
+            android:id="@+id/tl_stop_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.04"
+            android:layout_marginRight="5dp"
+            android:layout_marginLeft="5dp"
+            android:text="Stop" />
+    </TableRow>
+</LinearLayout>

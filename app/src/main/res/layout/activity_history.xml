@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0.79"
+        android:layout_marginBottom="5px"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:id="@+id/g_TL_IntakeAll">
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp">
+            <TextView
+                android:id="@+id/ia_Title"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="История задач"
+                android:textSize="20dp"
+                android:textStyle="bold"/>
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:layout_marginBottom="10dp">
+                <TextView
+                    android:id="@+id/h_Filter_Label"
+                    android:layout_height="match_parent"
+                    android:layout_width="50dp"
+                    android:layout_weight="0.04"
+                    android:layout_marginLeft="10dp"
+                    android:text="За месяц:"
+                    android:textStyle="italic"
+                    android:textSize="20dp"/>
+                <TextView
+                    android:id="@+id/h_Filter"
+                    android:layout_height="match_parent"
+                    android:layout_width="50dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_weight="0.04"
+                    android:text="01.01.2017"
+                    android:textSize="20dp"
+                    android:textStyle="bold|italic" />
+        </TableRow>
+        <GridView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/gvHistory">
+        </GridView>
+    </TableLayout>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="25px"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp">
+
+        <Button
+            android:id="@+id/h_edit_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.04"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            android:text="Edit" />
+        <Button
+            android:id="@+id/h_del_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.04"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            android:text="-" />
+    </TableRow>
+</LinearLayout>
