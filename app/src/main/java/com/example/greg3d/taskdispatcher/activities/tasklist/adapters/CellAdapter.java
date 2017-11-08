@@ -48,16 +48,25 @@ public class CellAdapter extends ArrayAdapter<TaskHistoryModel>
         controls.id_TextView.setValue(cell.taskId);
         controls.historyId_TextView.setValue(cell.id);
         controls.startDate_DateView.setDate(cell.startDate);
+        convertView.setBackgroundResource(R.drawable.side_default_cell);
         if(cell.activeState == State.IS_ACTIVE) {
+            convertView.setBackgroundResource(R.drawable.side_active_cell);
             controls.endDate_DateView.setEmptyText();
             controls.status_TextView.setText("АКТИВНА");
             controls.duration_DateView.setEmptyText();
         }
-        else {
-            controls.endDate_DateView.setDate(cell.endDate);
+        else if(cell.endDate.equals(cell.startDate)){
             controls.status_TextView.setText("не активна");
-            //controls.duration_DateView.setDate();
-            controls.duration_TextView.setText(Tools.msToString(cell.endDate.getTime() - cell.startDate.getTime()));
+            controls.startDate_DateView.setEmptyText();
+            controls.endDate_DateView.setEmptyText();
+            controls.duration_DateView.setEmptyText();
+        }
+        else{
+            controls.status_TextView.setText("не активна");
+            controls.endDate_DateView.setDate(cell.endDate);
+            // TODO - меняем ms на getDifTime
+            controls.duration_DateView.setDate(Tools.getDifTime(cell.startDate, cell.endDate));
+            //controls.duration_TextView.setText(Tools.msToString(cell.endDate.getTime() - cell.startDate.getTime()));
         }
         controls.name_TextView.setText(cell.name);
         // TODO

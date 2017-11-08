@@ -1,7 +1,7 @@
 package com.example.greg3d.taskdispatcher.activities.taskedit;
 
-import android.app.Activity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.example.greg3d.taskdispatcher.R;
@@ -19,7 +19,7 @@ import java.util.Date;
  * Created by greg3d on 28.10.17.
  */
 
-public class TaskEditActivity extends Activity implements View.OnClickListener{
+public class TaskEditActivity extends AppCompatActivity implements View.OnClickListener{
 
     private static final String LOG = "TaskEditActivity";
 
@@ -29,8 +29,6 @@ public class TaskEditActivity extends Activity implements View.OnClickListener{
     }
 
     private Controls controls;
-    public static Controls getControls(){return instance.controls;}
-
     private static TaskHistoryModel model;
     public static int state;
 
@@ -40,6 +38,8 @@ public class TaskEditActivity extends Activity implements View.OnClickListener{
         setContentView(R.layout.activity_edit_task);
         instance = this;
         controls = new Controls(this);
+        //ActivityFactory.InitFonts(this, controls.save_Button, CssManager.getEditButtonCss());
+        //ActivityFactory.InitFonts(this, controls.cancel_Button, CssManager.getEditButtonCss());
         this.updateFieldsBySelectedRecord();
     }
 
@@ -86,12 +86,10 @@ public class TaskEditActivity extends Activity implements View.OnClickListener{
                 model.id = TaskListActivity.getSelectedTaskId();
                 DBHelper.getInstance().editRecord(model);
 
-                TaskHistoryModel history = new TaskHistoryModel();
+                TaskHistoryModel history = DBHelper.getRecordById(TaskHistoryModel.class, TaskListActivity.getSelectedId());
                 history.name = model.name;
                 history.lastDate = lastDate;
-                history.taskId = model.id;
-                history.id = TaskListActivity.getSelectedId();
-                DBHelper.getInstance().editRecord(history);
+                DBHelper.getInstance().updateRecord(history);
             }
             TaskListActivity.refresh();
             this.finish();

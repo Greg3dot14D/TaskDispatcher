@@ -40,7 +40,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="11dp"
             android:textStyle="italic"
-            android:text="Начала"
+            android:text="Начата"
             android:textSize="20dp">
         </TextView>
 
@@ -63,7 +63,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="11dp"
             android:textStyle="italic"
-            android:text="Окончание"
+            android:text="Завершена"
             android:textSize="20dp">
         </TextView>
 
@@ -86,7 +86,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="11dp"
             android:textStyle="italic"
-            android:text="Прошло"
+            android:text="Длилась"
             android:textSize="20dp">
         </TextView>
 

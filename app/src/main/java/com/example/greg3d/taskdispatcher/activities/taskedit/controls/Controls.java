@@ -7,7 +7,9 @@ import android.widget.TableRow;
 
 import com.example.greg3d.taskdispatcher.R;
 import com.example.greg3d.taskdispatcher.constants.DateFormats;
+import com.example.greg3d.taskdispatcher.css.EditButtonCss;
 import com.example.greg3d.taskdispatcher.elements.FormatedDateView;
+import com.example.greg3d.taskdispatcher.framework.annotations.CSS;
 import com.example.greg3d.taskdispatcher.framework.annotations.DateFormated;
 import com.example.greg3d.taskdispatcher.framework.annotations.FindBy;
 import com.example.greg3d.taskdispatcher.framework.containers.BaseControls;
@@ -43,9 +45,11 @@ public class Controls extends BaseControls {
     @FindBy(R.id.e_EndDate_Row)
     public TableRow endDate_Row;
 
+    @CSS(EditButtonCss.class)
     @FindBy(R.id.e_Save_Button)
     public Button save_Button;
 
+    @CSS(EditButtonCss.class)
     @FindBy(R.id.e_Cancel_Button)
     public Button cancel_Button;
 

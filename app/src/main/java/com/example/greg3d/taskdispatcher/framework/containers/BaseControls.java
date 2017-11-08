@@ -14,5 +14,6 @@ public class BaseControls {
     public <T extends Activity> BaseControls(T view) {
         ActivityFactory.InitActivity(view, this);
         ActivityFactory.setListener((View.OnClickListener)view, this);
+        ActivityFactory.InitFonts(view, this);
     }
 }

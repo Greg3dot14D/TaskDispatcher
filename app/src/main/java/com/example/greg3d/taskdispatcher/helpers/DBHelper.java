@@ -6,7 +6,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import com.example.greg3d.taskdispatcher.fakes.FakeData;
 import com.example.greg3d.taskdispatcher.framework.annotations.Name;
 import com.example.greg3d.taskdispatcher.model.BaseModel;
 import com.example.greg3d.taskdispatcher.model.TaskHistoryModel;
@@ -32,11 +31,8 @@ public class DBHelper extends SQLiteOpenHelper {
         super(context, "myDB", null, 1);
         Log.d(LOG_TAG, "DBHelper Starts");
         this.db = this.getWritableDatabase();
-        Log.d(LOG_TAG, "getWritableDatabase Done");
-//
         instance = this;
-
-        new FakeData(this).createFakes();
+        //new FakeData(this).createFakes();
     }
 
     public static DBHelper getInstance(){
@@ -122,6 +118,15 @@ public class DBHelper extends SQLiteOpenHelper {
         return getRecords(model, query).get(0);
     }
 
+    public static <T extends BaseModel> T getRecordById(Class<T> clazz, Integer id){
+        try {
+            return getRecordById(clazz.newInstance(), id);
+        } catch (InstantiationException e) {
+            throw new RuntimeException(e.getMessage());
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException(e.getMessage());
+        }
+    }
     public static <T extends BaseModel> T getRecordById(T model, Integer id){
         String query = String.format(
                 "SELECT * FROM [%s] WHERE ID = %s"

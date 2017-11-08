@@ -20,7 +20,9 @@ import com.example.greg3d.taskdispatcher.framework.factory.ActivityFactory;
 import com.example.greg3d.taskdispatcher.framework.factory.ViewFactory;
 import com.example.greg3d.taskdispatcher.framework.helpers.ViewHelper;
 import com.example.greg3d.taskdispatcher.helpers.ActivitiesManager;
+import com.example.greg3d.taskdispatcher.helpers.DBHelper;
 import com.example.greg3d.taskdispatcher.helpers.GridViewHelper;
+import com.example.greg3d.taskdispatcher.model.TaskHistoryModel;
 
 /**
  * Created by greg3d on 28.10.17.
@@ -51,7 +53,7 @@ public class TaskListActivity extends Activity implements View.OnClickListener{
         controls = new Controls();
         ActivityFactory.InitActivity(this, controls);
         ActivityFactory.setListener(this, controls);
-        //ActivityFactory.InitFonts(this,controls, CssManager.getEditButtonCss());
+        ActivityFactory.InitFonts(this, controls);
     }
 
     public TaskListActivity(){}
@@ -65,6 +67,7 @@ public class TaskListActivity extends Activity implements View.OnClickListener{
         controls = new Controls();
         ViewFactory.InitView(view, controls);
         ActivityFactory.setListener(activity, controls);
+        ActivityFactory.InitFonts((Activity)activity, controls);
     }
 
     @Override
@@ -85,27 +88,27 @@ public class TaskListActivity extends Activity implements View.OnClickListener{
             ActivitiesManager.startTaskEditActivity(activity);
         }
         else if(v.idEquals(controls.start_Button) && isSelected()){
-            new YesNoDialog(activity, new StartCommand(), "Начинаем задачку ?").show();
+            if(isStarted())
+                new YesNoDialog(activity, new StartCommand(), "Задачка уже в работе !!!\nПовторное нажатие заменит дату начала текущей датой !\nВсе равно начинаем ?").show();
+            else
+                new YesNoDialog(activity, new StartCommand(), "Начинаем задачку ?").show();
         }
         else if(v.idEquals(controls.stop_Button) && isSelected()){
-            new YesNoDialog(activity, new StopCommand(), "Останавливаем задачку ?").show();
+            if(isStoped())
+                new YesNoDialog(activity, new StopCommand(), "Задачка уже остановлена !!!\nПовторное нажатие заменит дату окончания текущей датой !\nВсе равно заканчиваем ?").show();
+            else
+                new YesNoDialog(activity, new StopCommand(), "Останавливаем задачку ?").show();
         }
-//        else if(v.idEquals(controls.buy_Button) && isSelected()) {
-//            CureEditActivity.state = State.BUY;
-//            CureEditActivity
-//                    .setModel(DBHelper.getRecordById(new FarmacyHistoryModel(),
-//                            getSelectedId()));
-//            ActivitiesManager.startCureEditActivity(activity,0);
-//        }
-//        else if(v.idEquals(controls.edit_Button) && isSelected()) {
-//            CureEditActivity.state = State.EDIT;
-//            CureEditActivity
-//                    .setModel(DBHelper.getRecordById(new FarmacyHistoryModel(),
-//                            getSelectedId()));
-//            ActivitiesManager.startCureEditActivity(activity,0);
-//        }
         else if(v.idEquals(controls.del_Button) && isSelected())
             new YesNoDialog(activity, new DeleteTaskCommand(), "Удаляем пилюльку ?").show();
+    }
+
+    private boolean isStarted(){
+        return DBHelper.getRecordById(TaskHistoryModel.class, getSelectedId()).activeState.equals(State.IS_ACTIVE);
+    }
+
+    private boolean isStoped(){
+        return DBHelper.getRecordById(TaskHistoryModel.class, getSelectedId()).activeState.equals(State.NOT_ACTIVE);
     }
 
     private boolean isSelected(){

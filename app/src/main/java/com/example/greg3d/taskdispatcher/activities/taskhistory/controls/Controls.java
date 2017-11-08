@@ -21,6 +21,6 @@ public class Controls {
     public Button edit_Button;
 
     @FindBy(R.id.h_Filter)
-    @DateFormated(DateFormats.DATE_FORMAT)
+    @DateFormated(DateFormats.MONTH_YEAR_FORMAT)
     public FormatedDateView filter_DateView;
 }

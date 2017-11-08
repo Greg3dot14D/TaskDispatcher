@@ -7,6 +7,7 @@ import android.widget.Toast;
 
 import com.example.greg3d.taskdispatcher.constants.DateFormats;
 
+import java.text.ParseException;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -180,5 +181,27 @@ public class Tools {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+    public static Date glueDateTime(Date date, Date time){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(date.getTime() + time.getTime() - getEmptyDate().getTime());
+        return calendar.getTime();
+    }
+
+    public static Date getDifTime(Date startDate, Date endDate){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(endDate.getTime() - startDate.getTime() + getEmptyDate().getTime());
+        return calendar.getTime();
+    }
+
+    private static Date getEmptyDate(){
+        Calendar calendar = Calendar.getInstance();
+        try {
+            calendar.setTime(new SimpleDateFormat("hh:mm:ss").parse("00:00:00"));
+        } catch (ParseException e) {
+            throw new RuntimeException(e.getMessage());
+        }
+        return calendar.getTime();
     }
 }

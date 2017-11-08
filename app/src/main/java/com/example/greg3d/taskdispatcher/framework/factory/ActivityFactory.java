@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import com.example.greg3d.taskdispatcher.css.BaseCss;
 import com.example.greg3d.taskdispatcher.elements.BaseElement;
+import com.example.greg3d.taskdispatcher.framework.annotations.CSS;
 import com.example.greg3d.taskdispatcher.framework.annotations.DateFormated;
 import com.example.greg3d.taskdispatcher.framework.annotations.FindBy;
 import com.example.greg3d.taskdispatcher.framework.annotations.SetView;
@@ -112,6 +113,28 @@ public class ActivityFactory {
         }
     }
 
+    public static <T extends Activity, C extends BaseCss> void InitFonts(T activity, Object conteiner){
+        Field[] fields = conteiner.getClass().getDeclaredFields();
+
+        for(Field field: fields){
+            try {
+                if(field.isAnnotationPresent(CSS.class)) {
+                    Object o = field.get(conteiner);
+                    Object css = field.getAnnotation(CSS.class).value();
+                    if (o instanceof TextView)
+                        try {
+                            InitFonts(activity, (TextView) o, ((Class)css).newInstance());
+                        } catch (InstantiationException e) {
+                            e.printStackTrace();
+                        }
+                }
+
+            } catch (IllegalAccessException e) {
+                throw new RuntimeException(e.getStackTrace().toString());
+            }
+        }
+    }
+
     public static <T extends Activity, C extends BaseCss> void InitFonts(T activity, TextView textView, C font){
         Typeface type = Typeface.createFromAsset(activity.getAssets(), font.getFont());
         textView.setTypeface(type);
@@ -124,4 +147,18 @@ public class ActivityFactory {
                 font.getShadowColor()       //int color
         );
     }
+
+    public static <T extends Activity, C extends BaseCss> void InitFonts(T activity, TextView textView, Object font){
+        Typeface type = Typeface.createFromAsset(activity.getAssets(), ((C)font).getFont());
+        textView.setTypeface(type);
+        textView.setTextSize(((C)font).getTextSize());
+        textView.setTextColor(((C)font).getTextColor());
+        textView.setShadowLayer(
+                ((C)font).getShadowRadius(),     //float radius
+                ((C)font).getShadowDx(),         //float dx
+                ((C)font).getShadowDy(),         //float dy
+                ((C)font).getShadowColor()       //int color
+        );
+    }
+
 }

@@ -7,6 +7,7 @@ package com.example.greg3d.taskdispatcher.constants;
 public abstract class DateFormats {
     public static final String DATE_FORMAT = "dd.MM.yyyy";
     public static final String TIME_FORMAT = "HH:mm:ss";
+    public static final String MONTH_YEAR_FORMAT = "MMMMM yyyy";
     //public static final String DATE_TIME_FORMAT = "HH:mm:ss yyyy-MM-dd";
     public static final String DATE_TIME_FORMAT = "HH:mm:ss  dd.MM.yyyy";
     public static final String SIMPLE_DATE_TIME_FORMAT = "HH:mm   dd.MM.yy";

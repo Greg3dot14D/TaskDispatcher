@@ -36,7 +36,7 @@
                     android:id="@+id/h_Filter_Label"
                     android:layout_height="match_parent"
                     android:layout_width="50dp"
-                    android:layout_weight="0.04"
+                    android:layout_weight="0.01"
                     android:layout_marginLeft="10dp"
                     android:text="За месяц:"
                     android:textStyle="italic"
@@ -46,8 +46,8 @@
                     android:layout_height="match_parent"
                     android:layout_width="50dp"
                     android:layout_marginRight="5dp"
-                    android:layout_weight="0.04"
-                    android:text="01.01.2017"
+                    android:layout_weight="0.1"
+                    android:text="сентябрь 2017"
                     android:textSize="20dp"
                     android:textStyle="bold|italic" />
         </TableRow>
