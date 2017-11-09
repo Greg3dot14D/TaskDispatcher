@@ -104,8 +104,10 @@ public class TaskEditActivity extends AppCompatActivity implements View.OnClickL
         }
         else if(state == State.EDIT){
             TaskModel task = new TaskModel();
-            task = DBHelper.getRecordById(task,TaskListActivity.getSelectedTaskId());
-            controls.name_EditText.setText(task.name);
+            try {
+                task = DBHelper.getRecordById(task, TaskListActivity.getSelectedTaskId());
+                controls.name_EditText.setText(task.name);
+            }catch(NullPointerException e){}
         }
     }
 

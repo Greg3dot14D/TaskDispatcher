@@ -6,8 +6,8 @@ package com.example.greg3d.taskdispatcher.css;
 public class EditButtonCss extends BaseCss {
     private final String FONT = Fonts.RUINED;
     private final float SHADOW_RADIUS = 10f;     //float radius
-    private final float SHADOW_DX = 4f;          //float dx
-    private final float SHADOW_DY = 4f;          //float dy
+    private final float SHADOW_DX = 0f;          //float dx
+    private final float SHADOW_DY = 0f;          //float dy
     private final int SHADOW_COLOR = 0xFF676767; //int color
     private final int TEXT_COLOR = 0xFF7C0E10;
     private final int TEXT_SIZE = 20;

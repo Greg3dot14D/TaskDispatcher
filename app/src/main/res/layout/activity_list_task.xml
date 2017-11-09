@@ -30,14 +30,15 @@
         <GridView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
             android:id="@+id/gvTaskList">
         </GridView>
     </TableLayout>
 
     <TableRow
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginBottom="25px"
+        android:layout_height="0dp"
+        android:layout_marginBottom="0px"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp">
 

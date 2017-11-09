@@ -8,6 +8,8 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.ActionMode;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -28,15 +30,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
+        implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener, View.OnLongClickListener {
 
     private TaskListActivity taskListActivity;
     private TaskHistoryActivity taskHistoryActivity;
+
+    public static MainActivity instance;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.flipper_activity);
+
+        instance = this;
+
         // Создаем наши активити
         new DBHelper(this);
 
@@ -124,5 +131,44 @@ public class MainActivity extends AppCompatActivity
     public void onClick(View view) {
         taskListActivity.onClick(this, view);
         taskHistoryActivity.onClick(this, view);
+    }
+
+    @Override
+    public boolean onLongClick(View view) {
+        //taskListActivity.onLongClick(this, view, MainActivity.this.startActionMode(new ActionBarCallBack()));
+        //taskHistoryActivity.onClick(this, view);
+        return false;
+    }
+
+    public static class ActionBarCallBack implements ActionMode.Callback {
+
+        @Override
+        public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+            // TODO Auto-generated method stub
+            Log.d("MENU", "id =" + item.getTitle());
+            mode.finish();
+            return false;
+        }
+
+        @Override
+        public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+            // TODO Auto-generated method stub
+            mode.getMenuInflater().inflate(R.menu.cab, menu);
+            return true;
+        }
+
+        @Override
+        public void onDestroyActionMode(ActionMode mode) {
+            // TODO Auto-generated method stub
+
+        }
+
+        @Override
+        public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+            // TODO Auto-generated method stub
+
+            //mode.setTitle("CheckBox is Checked");
+            return false;
+        }
     }
 }

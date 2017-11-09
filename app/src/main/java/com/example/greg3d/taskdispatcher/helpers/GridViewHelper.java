@@ -58,6 +58,14 @@ public class GridViewHelper {
         });
     }
 
+    public GridView getGridView(){
+        return this.gridView;
+    }
+
+    public CellHelper getCellHelper(){
+        return this.cellHelper;
+    }
+
     public GridViewHelper setAdapter(ListAdapter adapter){
         this.gridView.setAdapter(adapter);
         return this;
@@ -75,7 +83,7 @@ public class GridViewHelper {
         return this.gridView.getSelectedItem();
     }
 
-    private void setSelected(){
+    public void setSelected(){
         //this.gridView.setSelected(true);
         this.isSelected = true;
     }

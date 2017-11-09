@@ -29,7 +29,7 @@ public class DBController {
                 " and END_DATE <= %s " +
                 " and (END_DATE - START_DATE) > 0 " +
                 " and DELETED < 1 " +
-                " ORDER BY START_DATE DESC"
+                " ORDER BY END_DATE DESC"
                     , startDate.getTime()
                     , endDate.getTime()
                 );
