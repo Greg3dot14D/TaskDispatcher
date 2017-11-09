@@ -10,7 +10,6 @@ import android.widget.AdapterView;
 import android.widget.TextView;
 
 import com.example.greg3d.taskdispatcher.R;
-import com.example.greg3d.taskdispatcher.activities.flipper.MainActivity;
 import com.example.greg3d.taskdispatcher.activities.taskedit.TaskEditActivity;
 import com.example.greg3d.taskdispatcher.activities.taskhistory.TaskHistoryActivity;
 import com.example.greg3d.taskdispatcher.activities.tasklist.adapters.CellAdapter;
@@ -65,7 +64,7 @@ public class TaskListActivity extends Activity implements View.OnClickListener{
 
     public <T extends View.OnClickListener> TaskListActivity(T activity, View view){
         instance = this;
-        final Activity a = (Activity)activity;
+        final Activity mainActivity = (Activity)activity;
         this.view = view;
         gridView = new GridViewHelper(view, R.id.gvTaskList)
                 .setAdapter(new CellAdapter(view.getContext()));
@@ -74,10 +73,10 @@ public class TaskListActivity extends Activity implements View.OnClickListener{
             .setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                mainActivity.startActionMode(new ActionBarCallBack(mainActivity));
                 gridView.getCellHelper().resetSelect();
                 gridView.getCellHelper().setSelect(view, l);
                 gridView.setSelected();
-                MainActivity.instance.startActionMode(new ActionBarCallBack(a));
                 return false;
             }
         });
@@ -110,7 +109,7 @@ public class TaskListActivity extends Activity implements View.OnClickListener{
             else if("Delete".equals(item.getTitle())){
                 new YesNoDialog(activity, new DeleteTaskCommand(), "Удаляем пилюльку ?").show();
             }
-            mode.finish();
+            //mode.finish();
             return false;
         }
 
