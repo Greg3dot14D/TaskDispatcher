@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.TextView;
 
 import com.example.greg3d.taskdispatcher.R;
+import com.example.greg3d.taskdispatcher.activities.flipper.MainActivity;
 import com.example.greg3d.taskdispatcher.activities.taskedit.TaskEditActivity;
 import com.example.greg3d.taskdispatcher.activities.taskhistory.TaskHistoryActivity;
 import com.example.greg3d.taskdispatcher.activities.tasklist.adapters.CellAdapter;
@@ -69,22 +70,42 @@ public class TaskListActivity extends Activity implements View.OnClickListener{
         gridView = new GridViewHelper(view, R.id.gvTaskList)
                 .setAdapter(new CellAdapter(view.getContext()));
 
-        gridView.getGridView()
-            .setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-                mainActivity.startActionMode(new ActionBarCallBack(mainActivity));
-                gridView.getCellHelper().resetSelect();
-                gridView.getCellHelper().setSelect(view, l);
-                gridView.setSelected();
-                return false;
-            }
-        });
+//        gridView.getGridView()
+//            .setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+//            @Override
+//            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+//                mainActivity.startActionMode(new ActionBarCallBack(mainActivity));
+//                gridView.getCellHelper().resetSelect();
+//                gridView.getCellHelper().setSelect(view, l);
+//                gridView.setSelected();
+//                return false;
+//            }
+//        });
 
+        gridView.getGridView()
+                .setOnItemLongClickListener(new GridViewListener(gridView));
         controls = new Controls();
         ViewFactory.InitView(view, controls);
         ActivityFactory.setListener(activity, controls);
         ActivityFactory.InitFonts((Activity)activity, controls);
+    }
+
+    private static class GridViewListener implements AdapterView.OnItemLongClickListener{
+        private GridViewHelper gridView;
+
+        public GridViewListener(GridViewHelper gridView){
+            this.gridView = gridView;
+        }
+
+        @Override
+        public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+            //this.activity.startActionMode(new ActionBarCallBack(this.activity));
+            MainActivity.showFabs();
+            gridView.getCellHelper().resetSelect();
+            gridView.getCellHelper().setSelect(view, l);
+            gridView.setSelected();
+            return false;
+        }
     }
 
     public static class ActionBarCallBack implements ActionMode.Callback {

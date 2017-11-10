@@ -1,0 +1,68 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="end|bottom"
+    >
+
+    <LinearLayout
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="end|bottom"
+        android:layout_marginBottom="100dp"
+        android:layout_marginRight="10dp"
+        >
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_hide"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end|center"
+        android:src="@drawable/ic_fab_hide"
+        android:visibility="visible"
+        app:backgroundTint="@color/colorAccent"
+        app:fabSize="normal" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end|center"
+        android:src="@drawable/ic_fab_add"
+        android:visibility="visible"
+        app:backgroundTint="@color/colorAccent"
+        app:fabSize="normal" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:src="@drawable/ic_fab_edit"
+        android:visibility="visible"
+        app:backgroundTint="@color/colorAccent"
+        app:fabSize="normal" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:src="@drawable/ic_fab_delete"
+        android:visibility="visible"
+        app:backgroundTint="@color/colorAccent"
+        app:fabSize="normal" />
+
+        <!--<android.support.design.widget.FloatingActionButton-->
+            <!--android:id="@+id/fab_delete"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="bottom|end"-->
+            <!--android:layout_margin="@dimen/fab_3_margin"-->
+            <!--android:src="@android:drawable/ic_menu_delete"-->
+            <!--android:visibility="visible"-->
+            <!--app:backgroundTint="@color/colorAccent"-->
+            <!--app:fabSize="mini" />-->
+    </LinearLayout>
+</FrameLayout>

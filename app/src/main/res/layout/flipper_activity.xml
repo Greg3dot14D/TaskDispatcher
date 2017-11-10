@@ -24,4 +24,9 @@
         app:headerLayout="@layout/nav_header_main"
         app:menu="@menu/activity_main_drawer"
         />
+    <include
+        layout="@layout/fab_layout"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        />
 </android.support.v4.widget.DrawerLayout>

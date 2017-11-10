@@ -8,6 +8,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,11 +18,17 @@ import com.example.greg3d.taskdispatcher.R;
 import com.example.greg3d.taskdispatcher.activities.flipper.adapters.SamplePagerAdapter;
 import com.example.greg3d.taskdispatcher.activities.flipper.commands.ExportFilesCommand;
 import com.example.greg3d.taskdispatcher.activities.flipper.commands.ImportFilesCommand;
+import com.example.greg3d.taskdispatcher.activities.taskedit.TaskEditActivity;
 import com.example.greg3d.taskdispatcher.activities.taskhistory.TaskHistoryActivity;
 import com.example.greg3d.taskdispatcher.activities.tasklist.TaskListActivity;
+import com.example.greg3d.taskdispatcher.activities.tasklist.commands.DeleteTaskCommand;
 import com.example.greg3d.taskdispatcher.constants.Settings;
+import com.example.greg3d.taskdispatcher.constants.State;
 import com.example.greg3d.taskdispatcher.dialog.MessageDialog;
 import com.example.greg3d.taskdispatcher.dialog.YesNoDialog;
+import com.example.greg3d.taskdispatcher.framework.factory.ActivityFactory;
+import com.example.greg3d.taskdispatcher.framework.helpers.ViewHelper;
+import com.example.greg3d.taskdispatcher.helpers.ActivitiesManager;
 import com.example.greg3d.taskdispatcher.helpers.DBHelper;
 
 import java.util.ArrayList;
@@ -34,6 +41,7 @@ public class MainActivity extends AppCompatActivity
     private TaskHistoryActivity taskHistoryActivity;
 
     public static MainActivity instance;
+    public static MainControls controls;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +83,13 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        controls = new MainControls();
+
+        ActivityFactory.InitActivity(this, controls);
+        ActivityFactory.setListener(this, controls);
+
+        hideFabs();
     }
 
     @Override
@@ -113,6 +128,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
+        Log.d("HHH", "->" + id);
         if (id == R.id.nav_import) {
             new YesNoDialog(this, new ImportFilesCommand(), "Выполнить инпорт из внешних файлов ?\nДанные в БД будут похерены !!!").show();
         } else if (id == R.id.nav_export) {
@@ -127,7 +143,37 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onClick(View view) {
+        ViewHelper v = new ViewHelper(view);
+        if(v.idEquals(controls.hide_Fab)){
+            hideFabs();
+        }
+        else if(v.idEquals(controls.edit_Fab)){
+            TaskEditActivity.state = State.EDIT;
+            ActivitiesManager.startTaskEditActivity(this);
+        }
+        else if(v.idEquals(controls.add_Fab)){
+            TaskEditActivity.state = State.ADD;
+            ActivitiesManager.startTaskEditActivity(this);
+        }
+        else if(v.idEquals(controls.delete_Fab)){
+            new YesNoDialog(this, new DeleteTaskCommand(), "Удаляем задачку ?").show();
+        }
+
         taskListActivity.onClick(this, view);
         taskHistoryActivity.onClick(this, view);
+    }
+
+    public static void showFabs(){
+        controls.hide_Fab.show();
+        controls.add_Fab.show();
+        controls.edit_Fab.show();
+        controls.delete_Fab.show();
+    }
+
+    public static void hideFabs(){
+        controls.hide_Fab.hide();
+        controls.add_Fab.hide();
+        controls.edit_Fab.hide();
+        controls.delete_Fab.hide();
     }
 }
