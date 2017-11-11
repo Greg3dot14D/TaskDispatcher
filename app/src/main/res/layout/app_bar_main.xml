@@ -20,4 +20,5 @@
 
     </android.support.design.widget.AppBarLayout>
     <include layout="@layout/pager" />
+    <include layout="@layout/fab_layout"/>
 </android.support.design.widget.CoordinatorLayout>

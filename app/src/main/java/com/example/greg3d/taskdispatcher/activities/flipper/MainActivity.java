@@ -13,11 +13,14 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 
 import com.example.greg3d.taskdispatcher.R;
 import com.example.greg3d.taskdispatcher.activities.flipper.adapters.SamplePagerAdapter;
 import com.example.greg3d.taskdispatcher.activities.flipper.commands.ExportFilesCommand;
 import com.example.greg3d.taskdispatcher.activities.flipper.commands.ImportFilesCommand;
+import com.example.greg3d.taskdispatcher.activities.flipper.controls.MainControls;
 import com.example.greg3d.taskdispatcher.activities.taskedit.TaskEditActivity;
 import com.example.greg3d.taskdispatcher.activities.taskhistory.TaskHistoryActivity;
 import com.example.greg3d.taskdispatcher.activities.tasklist.TaskListActivity;
@@ -89,8 +92,14 @@ public class MainActivity extends AppCompatActivity
         ActivityFactory.InitActivity(this, controls);
         ActivityFactory.setListener(this, controls);
 
+        anim_show = AnimationUtils.loadAnimation(getApplication(), R.anim.fab_show);
+        anim_hide = AnimationUtils.loadAnimation(getApplication(), R.anim.fab_hide);
+
         hideFabs();
     }
+
+    static Animation anim_show;
+    static Animation anim_hide;
 
     @Override
     public void onBackPressed() {
@@ -164,16 +173,47 @@ public class MainActivity extends AppCompatActivity
     }
 
     public static void showFabs(){
+//        controls.hide_Fab.startAnimation(AnimationUtils.loadAnimation(instance.getApplication(), R.anim.fab_show_300));
+//        controls.add_Fab.startAnimation(AnimationUtils.loadAnimation(instance.getApplication(), R.anim.fab_show_200));
+//        controls.edit_Fab.startAnimation(AnimationUtils.loadAnimation(instance.getApplication(), R.anim.fab_show_100));
+//        controls.delete_Fab.startAnimation(AnimationUtils.loadAnimation(instance.getApplication(), R.anim.fab_show));
+//
+//        controls.hide_Fab.show();
+//        controls.add_Fab.show();
+//        controls.edit_Fab.show();
+//        controls.delete_Fab.show();
+//
+//        controls.hide_Fab.setClickable(true);
+//        controls.add_Fab.setClickable(true);
+//        controls.edit_Fab.setClickable(true);
+//        controls.delete_Fab.setClickable(true);
+
         controls.hide_Fab.show();
         controls.add_Fab.show();
         controls.edit_Fab.show();
         controls.delete_Fab.show();
+
     }
 
     public static void hideFabs(){
+//        //controls.hide_Fab.startAnimation(AnimationUtils.loadAnimation(instance.getApplication(), R.anim.fab_hide_300));
+//        controls.add_Fab.startAnimation(AnimationUtils.loadAnimation(instance.getApplication(), R.anim.fab_hide_200));
+//        controls.edit_Fab.startAnimation(AnimationUtils.loadAnimation(instance.getApplication(), R.anim.fab_hide_100));
+//        controls.delete_Fab.startAnimation(AnimationUtils.loadAnimation(instance.getApplication(), R.anim.fab_hide));
+//
+//        //controls.hide_Fab.setClickable(false);
+//        controls.add_Fab.setClickable(false);
+//        controls.edit_Fab.setClickable(false);
+//        controls.delete_Fab.setClickable(false);
+
         controls.hide_Fab.hide();
         controls.add_Fab.hide();
         controls.edit_Fab.hide();
         controls.delete_Fab.hide();
+
+//        controls.hide_Fab.hide();
+//        controls.add_Fab.hide();
+//        controls.edit_Fab.hide();
+//        controls.delete_Fab.hide();
     }
 }

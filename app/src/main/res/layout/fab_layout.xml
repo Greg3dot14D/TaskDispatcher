@@ -21,7 +21,7 @@
         android:layout_gravity="bottom|end|center"
         android:src="@drawable/ic_fab_hide"
         android:visibility="visible"
-        app:backgroundTint="@color/colorAccent"
+        app:backgroundTint="@color/colorPrimary"
         app:fabSize="normal" />
 
     <android.support.design.widget.FloatingActionButton

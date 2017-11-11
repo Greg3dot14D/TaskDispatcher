@@ -3,15 +3,18 @@ package com.example.greg3d.taskdispatcher.framework.factory;
 import android.app.Activity;
 import android.graphics.Typeface;
 import android.view.View;
+import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
 import com.example.greg3d.taskdispatcher.css.BaseCss;
 import com.example.greg3d.taskdispatcher.elements.BaseElement;
+import com.example.greg3d.taskdispatcher.framework.annotations.Animation;
 import com.example.greg3d.taskdispatcher.framework.annotations.CSS;
 import com.example.greg3d.taskdispatcher.framework.annotations.DateFormated;
 import com.example.greg3d.taskdispatcher.framework.annotations.FindBy;
 import com.example.greg3d.taskdispatcher.framework.annotations.SetView;
 import com.example.greg3d.taskdispatcher.framework.interfaces.IDateFormated;
+import com.example.greg3d.taskdispatcher.framework.interfaces.ISetAnimation;
 import com.example.greg3d.taskdispatcher.framework.interfaces.ISetView;
 
 import java.lang.reflect.Field;
@@ -63,6 +66,16 @@ public class ActivityFactory {
                             Object o = field.getType().getConstructor(Object.class).newInstance(activity.findViewById(id));
                             if(field.isAnnotationPresent(DateFormated.class))
                                 ((IDateFormated)o).setDateFormat(field.getAnnotation(DateFormated.class).value());
+                            if(field.isAnnotationPresent(Animation.class)){
+                                int showId = field.getAnnotation(Animation.class).show();
+                                int hideId = field.getAnnotation(Animation.class).hide();
+                                int clickId = field.getAnnotation(Animation.class).click();
+                                if(showId != 0)
+                                    ((ISetAnimation)o).setShowAnimation(AnimationUtils.loadAnimation(activity.getApplication(), showId));
+                                if(hideId != 0)
+                                    ((ISetAnimation)o).setHideAnimation(AnimationUtils.loadAnimation(activity.getApplication(), hideId));
+                                // TODO - + ClickAnimation
+                            }
                             field.set(conteiner, o);
                         } catch (InstantiationException e) {
                             e.printStackTrace();

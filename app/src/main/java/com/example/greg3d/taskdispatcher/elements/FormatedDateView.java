@@ -16,7 +16,7 @@ import java.util.Date;
  *
  */
 @SetView(TextView.class)
-public class FormatedDateView extends BaseElement implements IDateFormated, ISetView {
+public class FormatedDateView <T extends TextView> extends BaseElement implements IDateFormated, ISetView {
 
     private String dateFormat = DateFormats.DATE_TIME_FORMAT;
 
@@ -25,17 +25,17 @@ public class FormatedDateView extends BaseElement implements IDateFormated, ISet
     }
 
     public void setDate(Date date){
-        this.view.setText(Tools.dateTimeToString(date, this.dateFormat));
+        ((T)this.view).setText(Tools.dateTimeToString(date, this.dateFormat));
     }
 
     public void setText(String text){
-        this.view.setText(text);
+        ((T)this.view).setText(text);
     }
 
     public void setEmptyText(){
         // "HH:mm:ss yyyy-MM-dd"
         String e = "_";
-        this.view.setText(this.dateFormat
+        ((T)this.view).setText(this.dateFormat
                 .replace("H",e)
                 .replace("m",e)
                 .replace("s",e)
@@ -46,7 +46,7 @@ public class FormatedDateView extends BaseElement implements IDateFormated, ISet
     }
 
     public Date getDate(){
-        return Tools.stringToDate(this.view.getText().toString(), this.dateFormat);
+        return Tools.stringToDate(((T)this.view).getText().toString(), this.dateFormat);
     }
 
     @Override
