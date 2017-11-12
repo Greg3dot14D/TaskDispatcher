@@ -15,7 +15,7 @@ public class DeleteTaskCommand implements ICommand {
     public void execute() {
         // TODO
         TaskModel model = new TaskModel();
-        model.id = TaskListActivity.getSelectedTaskId();
+        model.id = TaskListActivity.getSelectedObject().taskId;
         DBHelper.getInstance().deleteRecord(model);
         TaskListActivity.refresh();
     }

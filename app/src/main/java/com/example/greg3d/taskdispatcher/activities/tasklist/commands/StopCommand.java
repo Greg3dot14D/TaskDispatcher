@@ -20,11 +20,11 @@ public class StopCommand implements ICommand{
         Date lastDate = new Date();
 
         TaskModel task = new TaskModel();
-        task = DBHelper.getInstance().getRecordById(task, TaskListActivity.getSelectedTaskId());
+        task = DBHelper.getInstance().getRecordById(task, TaskListActivity.getSelectedObject().taskId);
         task.lastDate = lastDate;
 
         TaskHistoryModel history = new TaskHistoryModel();
-        history.id = TaskListActivity.getSelectedId();
+        history.id = TaskListActivity.getSelectedObject().id;
         history.lastDate = lastDate;
         history.endDate = lastDate;
         history.activeState = State.NOT_ACTIVE;

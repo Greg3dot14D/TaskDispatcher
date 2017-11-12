@@ -13,16 +13,16 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 
 import com.example.greg3d.taskdispatcher.R;
 import com.example.greg3d.taskdispatcher.activities.flipper.adapters.SamplePagerAdapter;
 import com.example.greg3d.taskdispatcher.activities.flipper.commands.ExportFilesCommand;
 import com.example.greg3d.taskdispatcher.activities.flipper.commands.ImportFilesCommand;
+import com.example.greg3d.taskdispatcher.activities.flipper.controls.HistoryControls;
 import com.example.greg3d.taskdispatcher.activities.flipper.controls.MainControls;
 import com.example.greg3d.taskdispatcher.activities.taskedit.TaskEditActivity;
 import com.example.greg3d.taskdispatcher.activities.taskhistory.TaskHistoryActivity;
+import com.example.greg3d.taskdispatcher.activities.taskhistory.commands.DeleteHistoryCommand;
 import com.example.greg3d.taskdispatcher.activities.tasklist.TaskListActivity;
 import com.example.greg3d.taskdispatcher.activities.tasklist.commands.DeleteTaskCommand;
 import com.example.greg3d.taskdispatcher.constants.Settings;
@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity
 
     public static MainActivity instance;
     public static MainControls controls;
+    public static HistoryControls historyControls;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +76,8 @@ public class MainActivity extends AppCompatActivity
 
         pager.setAdapter(pagerAdapter);
 
+
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -88,18 +91,18 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         controls = new MainControls();
+        historyControls = new HistoryControls();
 
         ActivityFactory.InitActivity(this, controls);
         ActivityFactory.setListener(this, controls);
+        ActivityFactory.InitActivity(this, historyControls);
+        ActivityFactory.setListener(this, historyControls);
 
-        anim_show = AnimationUtils.loadAnimation(getApplication(), R.anim.fab_show);
-        anim_hide = AnimationUtils.loadAnimation(getApplication(), R.anim.fab_hide);
+        pager.addOnPageChangeListener(new OnChangePage(controls, historyControls));
 
         hideFabs();
+        hideHistoryFabs();
     }
-
-    static Animation anim_show;
-    static Animation anim_hide;
 
     @Override
     public void onBackPressed() {
@@ -156,8 +159,16 @@ public class MainActivity extends AppCompatActivity
         if(v.idEquals(controls.hide_Fab)){
             hideFabs();
         }
-        else if(v.idEquals(controls.edit_Fab)){
+        if(v.idEquals(historyControls.hide_Fab)){
+            hideHistoryFabs();
+        }
+        else if(v.idEquals(controls.edit_Fab) && TaskListActivity.getInstance().isSelected()){
             TaskEditActivity.state = State.EDIT;
+            ActivitiesManager.startTaskEditActivity(this);
+        }
+        else if(v.idEquals(historyControls.edit_Fab) && TaskHistoryActivity.getInstance().isSelected()){
+            // TODO
+            TaskEditActivity.state = State.EDIT_HISTORY;
             ActivitiesManager.startTaskEditActivity(this);
         }
         else if(v.idEquals(controls.add_Fab)){
@@ -167,53 +178,73 @@ public class MainActivity extends AppCompatActivity
         else if(v.idEquals(controls.delete_Fab)){
             new YesNoDialog(this, new DeleteTaskCommand(), "Удаляем задачку ?").show();
         }
+        else if(v.idEquals(historyControls.delete_Fab)){
+            new YesNoDialog(this, new DeleteHistoryCommand(), "Удаляем запись из истории ?").show();
+        }
 
         taskListActivity.onClick(this, view);
         taskHistoryActivity.onClick(this, view);
     }
 
     public static void showFabs(){
-//        controls.hide_Fab.startAnimation(AnimationUtils.loadAnimation(instance.getApplication(), R.anim.fab_show_300));
-//        controls.add_Fab.startAnimation(AnimationUtils.loadAnimation(instance.getApplication(), R.anim.fab_show_200));
-//        controls.edit_Fab.startAnimation(AnimationUtils.loadAnimation(instance.getApplication(), R.anim.fab_show_100));
-//        controls.delete_Fab.startAnimation(AnimationUtils.loadAnimation(instance.getApplication(), R.anim.fab_show));
-//
-//        controls.hide_Fab.show();
-//        controls.add_Fab.show();
-//        controls.edit_Fab.show();
-//        controls.delete_Fab.show();
-//
-//        controls.hide_Fab.setClickable(true);
-//        controls.add_Fab.setClickable(true);
-//        controls.edit_Fab.setClickable(true);
-//        controls.delete_Fab.setClickable(true);
-
-        controls.hide_Fab.show();
-        controls.add_Fab.show();
-        controls.edit_Fab.show();
-        controls.delete_Fab.show();
-
+        if(!controls.isShown) {
+            controls.showControls();
+            controls.isShown = true;
+        }
     }
 
-    public static void hideFabs(){
-//        //controls.hide_Fab.startAnimation(AnimationUtils.loadAnimation(instance.getApplication(), R.anim.fab_hide_300));
-//        controls.add_Fab.startAnimation(AnimationUtils.loadAnimation(instance.getApplication(), R.anim.fab_hide_200));
-//        controls.edit_Fab.startAnimation(AnimationUtils.loadAnimation(instance.getApplication(), R.anim.fab_hide_100));
-//        controls.delete_Fab.startAnimation(AnimationUtils.loadAnimation(instance.getApplication(), R.anim.fab_hide));
-//
-//        //controls.hide_Fab.setClickable(false);
-//        controls.add_Fab.setClickable(false);
-//        controls.edit_Fab.setClickable(false);
-//        controls.delete_Fab.setClickable(false);
+    public static void showHistoryFabs(){
+        if(!historyControls.isShown) {
+            historyControls.showControls();
+            historyControls.isShown = true;
+        }
+    }
 
-        controls.hide_Fab.hide();
-        controls.add_Fab.hide();
-        controls.edit_Fab.hide();
-        controls.delete_Fab.hide();
+    private void hideFabs(){
+        if(controls.isShown) {
+            controls.hideControls();
+            controls.isShown = false;
+        }
+    }
 
-//        controls.hide_Fab.hide();
-//        controls.add_Fab.hide();
-//        controls.edit_Fab.hide();
-//        controls.delete_Fab.hide();
+    private void hideHistoryFabs(){
+        if(historyControls.isShown) {
+            historyControls.hideControls();
+            historyControls.isShown = false;
+        }
+    }
+
+    private static class OnChangePage implements ViewPager.OnPageChangeListener {
+        private MainControls controls;
+        private HistoryControls historyControls;
+
+        public OnChangePage (MainControls controls, HistoryControls historyControls){
+            this.controls = controls;
+            this.historyControls = historyControls;
+        }
+
+        @Override
+        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+        }
+
+        @Override
+        public void onPageSelected(int position) {
+            if(position == 1) {
+                if(controls.isShown)
+                    controls.hideControls();
+                if(historyControls.isShown)
+                    historyControls.showControls();
+            }
+            else if(position == 0) {
+                if (controls.isShown)
+                    controls.showControls();
+                if (historyControls.isShown)
+                    historyControls.hideControls();
+            }
+        }
+
+        @Override
+        public void onPageScrollStateChanged(int state) {
+        }
     }
 }

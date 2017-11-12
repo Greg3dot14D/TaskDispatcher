@@ -30,62 +30,77 @@
                 android:inputType="textPersonName"
                 android:text="В" />
         </TableRow>
-        <TableRow
+        </TableLayout>
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="0dp"
+        >
+    <TableRow
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
             android:id="@+id/e_StartDate_Row">
             <TextView
                 android:id="@+id/e_StartDate_Label"
                 android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_weight="0.2"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.8"
                 android:layout_marginLeft="5dp"
                 android:textSize="20dp"
+                android:visibility="invisible"
                 android:text="Начало" />
             <TextView
                 android:id="@+id/e_StartDate_Input"
                 android:layout_width="wrap_content"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="0.8"
                 android:textSize="20dp"
                 android:inputType="textPersonName"
+                android:visibility="invisible"
                 android:text="01.01.2017" />
             <TextView
                 android:id="@+id/e_StartTime_Input"
                 android:layout_width="wrap_content"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="0.8"
                 android:textSize="20dp"
                 android:inputType="textPersonName"
+                android:visibility="invisible"
                 android:text="01:01:01" />
         </TableRow>
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             android:id="@+id/e_EndDate_Row">
             <TextView
                 android:id="@+id/e_EndDate_Label"
                 android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_weight="0.2"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.8"
                 android:layout_marginLeft="5dp"
                 android:textSize="20dp"
+                android:visibility="invisible"
                 android:text="Окончание" />
             <TextView
                 android:id="@+id/e_EndDate_Input"
                 android:layout_width="wrap_content"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="0.8"
                 android:textSize="20dp"
                 android:inputType="textPersonName"
+                android:visibility="invisible"
                 android:text="01.01.2017" />
             <TextView
                 android:id="@+id/e_EndTime_Input"
                 android:layout_width="wrap_content"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
                 android:layout_weight="0.8"
                 android:textSize="20dp"
                 android:inputType="textPersonName"
+                android:visibility="invisible"
                 android:text="01:01:01" />
         </TableRow>
     </TableLayout>

@@ -3,9 +3,10 @@ package com.example.greg3d.taskdispatcher.activities.taskhistory;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.TextView;
+import android.widget.AdapterView;
 
 import com.example.greg3d.taskdispatcher.R;
+import com.example.greg3d.taskdispatcher.activities.flipper.MainActivity;
 import com.example.greg3d.taskdispatcher.activities.taskhistory.adapters.CellAdapter;
 import com.example.greg3d.taskdispatcher.activities.taskhistory.commands.FilterByMonthCommand;
 import com.example.greg3d.taskdispatcher.activities.taskhistory.controls.Controls;
@@ -61,6 +62,10 @@ public class TaskHistoryActivity extends Activity implements View.OnClickListene
         this.view = view;
         gridView = new GridViewHelper(view, R.id.gvHistory)
                 .setAdapter(new CellAdapter(view.getContext(), getfilteredByMonthRecords(new Date())));
+
+        gridView.getGridView()
+                .setOnItemLongClickListener(new GridViewListener(gridView));
+
         controls = new Controls();
         ViewFactory.InitView(view, controls);
         ActivityFactory.setListener(activity, controls);
@@ -81,7 +86,24 @@ public class TaskHistoryActivity extends Activity implements View.OnClickListene
         }
     }
 
-    private boolean isSelected(){
+    private static class GridViewListener implements AdapterView.OnItemLongClickListener{
+        private GridViewHelper gridView;
+
+        public GridViewListener(GridViewHelper gridView){
+            this.gridView = gridView;
+        }
+
+        @Override
+        public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+            MainActivity.showHistoryFabs();
+            gridView.getCellHelper().resetSelect();
+            gridView.getCellHelper().setSelect(view, l);
+            gridView.setSelected(i);
+            return false;
+        }
+    }
+
+    public boolean isSelected(){
         if(!this.gridView.isSelected()) {
             Show.show(view.getContext(), "Запись не выбрана");
             return false;
@@ -90,12 +112,8 @@ public class TaskHistoryActivity extends Activity implements View.OnClickListene
     }
 
     // TODO
-    public static int getSelectedTaskId(){
-        return Integer.valueOf(((TextView)instance.gridView.getView().findViewById(R.id.t_id)).getText().toString());
-    }
-
-    public static int getSelectedId(){
-        return Integer.valueOf(((TextView)instance.gridView.getView().findViewById(R.id.t_historyId)).getText().toString());
+    public static TaskHistoryModel getSelectedObject(){
+        return (TaskHistoryModel)instance.gridView.getSelectedObject();
     }
 
     public static void refresh(){

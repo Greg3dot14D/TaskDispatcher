@@ -15,6 +15,7 @@ public class GridViewHelper {
     private GridView gridView;
     private final CellHelper cellHelper = new CellHelper();
     private boolean isSelected = false;
+    private int selectedPosition = -1;
 
     public GridViewHelper(View view, int id){
         this.gridView = view.findViewById(id);
@@ -53,7 +54,7 @@ public class GridViewHelper {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 cellHelper.resetSelect();
                 cellHelper.setSelect(view, id);
-                setSelected();
+                setSelected(position);
             }
         });
     }
@@ -71,30 +72,24 @@ public class GridViewHelper {
         return this;
     }
 
-    public long getSelectedId(){
-        return this.cellHelper.getId();
-    }
-
     public View getView(){
         return this.cellHelper.getView();
     }
 
     public Object getSelectedObject(){
-        return this.gridView.getSelectedItem();
+        return this.gridView.getAdapter().getItem(this.selectedPosition);
     }
 
-    public void setSelected(){
-        //this.gridView.setSelected(true);
+    public void setSelected(int position){
         this.isSelected = true;
+        this.selectedPosition = position;
     }
 
     public void setUnSelected(){
-        //this.gridView.setSelected(false);
         this.isSelected = false;
     }
 
     public boolean isSelected(){
-       //return this.gridView.isSelected();
-        return this.isSelected;
+       return this.isSelected;
     }
 }

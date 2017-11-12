@@ -55,25 +55,21 @@ public class DatePickerDialogImpl{
     }
     /** Called when the activity is first created. */
 
-    public void show()
-    {
+    public void showCurrentDate(){
         tpd.updateDate(this.year, this.month, this.day);
         tpd.show();
     }
 
-    public void show(String inDate)
-    {
-        DateFormat format = new SimpleDateFormat(this.dateMask);
+    public void show(){
+        this.show(this.date);
+    }
 
-        Date date = format.parse(inDate, new ParsePosition(0));
+    public void show(Date date){
         calendar.setTime(date);
         this.year = calendar.get(Calendar.YEAR);
         this.month = calendar.get(Calendar.MONTH);
         this.day = calendar.get(Calendar.DAY_OF_MONTH);
-
         tpd.updateDate(this.year, this.month, this.day);
-
         tpd.show();
     }
-
 }

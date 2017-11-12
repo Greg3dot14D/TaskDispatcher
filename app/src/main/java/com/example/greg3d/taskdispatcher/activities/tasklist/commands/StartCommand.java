@@ -19,7 +19,7 @@ public class StartCommand implements ICommand{
         Date lastDate = new Date();
 
         TaskModel task = new TaskModel();
-        task = DBHelper.getRecordById(task, TaskListActivity.getSelectedTaskId());
+        task = DBHelper.getRecordById(task, TaskListActivity.getSelectedObject().taskId);
         task.lastDate = lastDate;
 
         TaskHistoryModel history = new TaskHistoryModel();

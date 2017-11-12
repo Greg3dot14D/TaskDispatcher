@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TableRow;
+import android.widget.TextView;
 
 import com.example.greg3d.taskdispatcher.R;
 import com.example.greg3d.taskdispatcher.constants.DateFormats;
@@ -23,6 +24,9 @@ public class Controls extends BaseControls {
     @FindBy(R.id.e_TaskName_Input)
     public EditText name_EditText;
 
+    @FindBy(R.id.e_StartDate_Label)
+    public TextView startDate_Label;
+
     @FindBy(R.id.e_StartDate_Input)
     @DateFormated(DateFormats.DATE_FORMAT)
     public FormatedDateView startDate_DateText;
@@ -30,6 +34,9 @@ public class Controls extends BaseControls {
     @FindBy(R.id.e_StartTime_Input)
     @DateFormated(DateFormats.TIME_FORMAT)
     public FormatedDateView startTime_DateText;
+
+    @FindBy(R.id.e_EndDate_Label)
+    public TextView endDate_Label;
 
     @FindBy(R.id.e_EndDate_Input)
     @DateFormated(DateFormats.DATE_FORMAT)

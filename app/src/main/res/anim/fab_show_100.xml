@@ -24,7 +24,7 @@
 
     <!--Fade In-->
     <alpha
-        android:duration="500"
+        android:duration="300"
         android:fromAlpha="0.0"
         android:interpolator="@android:anim/decelerate_interpolator"
         android:toAlpha="1.0"></alpha>

@@ -24,18 +24,20 @@ public class FormatedDateView <T extends TextView> extends BaseElement implement
         super(view);
     }
 
+    private T getWrappedElement(){return (T)this.view;}
+
     public void setDate(Date date){
         ((T)this.view).setText(Tools.dateTimeToString(date, this.dateFormat));
     }
 
     public void setText(String text){
-        ((T)this.view).setText(text);
+        getWrappedElement().setText(text);
     }
 
     public void setEmptyText(){
         // "HH:mm:ss yyyy-MM-dd"
         String e = "_";
-        ((T)this.view).setText(this.dateFormat
+        getWrappedElement().setText(this.dateFormat
                 .replace("H",e)
                 .replace("m",e)
                 .replace("s",e)
@@ -46,7 +48,7 @@ public class FormatedDateView <T extends TextView> extends BaseElement implement
     }
 
     public Date getDate(){
-        return Tools.stringToDate(((T)this.view).getText().toString(), this.dateFormat);
+        return Tools.stringToDate(getWrappedElement().getText().toString(), this.dateFormat);
     }
 
     @Override

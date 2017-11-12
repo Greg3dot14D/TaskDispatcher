@@ -10,18 +10,6 @@
         android:layout_width="wrap_content"
         >
     <TextView
-        android:id="@+id/t_historyId"
-        android:layout_width="20dp"
-        android:layout_height="wrap_content"
-        android:textSize="0dp">
-    </TextView>
-    <TextView
-        android:id="@+id/t_id"
-        android:layout_width="20dp"
-        android:layout_height="wrap_content"
-        android:textSize="0dp">
-    </TextView>
-    <TextView
         android:id="@+id/t_Name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

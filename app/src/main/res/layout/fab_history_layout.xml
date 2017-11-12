@@ -15,7 +15,7 @@
         >
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab_hide"
+        android:id="@+id/fab_history_hide"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end|center"
@@ -25,17 +25,7 @@
         app:fabSize="normal" />
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab_add"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end|center"
-        android:src="@drawable/ic_fab_add"
-        android:visibility="invisible"
-        app:backgroundTint="@color/colorAccent"
-        app:fabSize="normal" />
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab_edit"
+        android:id="@+id/fab_history_edit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
@@ -45,7 +35,7 @@
         app:fabSize="normal" />
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab_delete"
+        android:id="@+id/fab_history_delete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"

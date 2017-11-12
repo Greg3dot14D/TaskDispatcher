@@ -5,6 +5,7 @@ package com.example.greg3d.taskdispatcher.constants;
  */
 
 public abstract class State {
+    public static final int EDIT_HISTORY = 3;
     public static final int EDIT = 2;
     public static final int ADD = 1;
     public static final int UNDEFINED = 0;

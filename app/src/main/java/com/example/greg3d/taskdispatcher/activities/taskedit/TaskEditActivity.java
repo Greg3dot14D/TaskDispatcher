@@ -5,11 +5,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.example.greg3d.taskdispatcher.R;
+import com.example.greg3d.taskdispatcher.activities.taskedit.commands.EditDateFieldCommand;
 import com.example.greg3d.taskdispatcher.activities.taskedit.controls.Controls;
+import com.example.greg3d.taskdispatcher.activities.taskhistory.TaskHistoryActivity;
 import com.example.greg3d.taskdispatcher.activities.tasklist.TaskListActivity;
 import com.example.greg3d.taskdispatcher.constants.State;
+import com.example.greg3d.taskdispatcher.controller.DBController;
+import com.example.greg3d.taskdispatcher.dialog.DatePickerDialogImpl;
+import com.example.greg3d.taskdispatcher.dialog.MessageDialog;
+import com.example.greg3d.taskdispatcher.dialog.TimePickerDialogImpl;
 import com.example.greg3d.taskdispatcher.framework.helpers.ViewHelper;
 import com.example.greg3d.taskdispatcher.helpers.DBHelper;
+import com.example.greg3d.taskdispatcher.helpers.Tools;
 import com.example.greg3d.taskdispatcher.model.TaskHistoryModel;
 import com.example.greg3d.taskdispatcher.model.TaskModel;
 
@@ -29,7 +36,6 @@ public class TaskEditActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private Controls controls;
-    private static TaskHistoryModel model;
     public static int state;
 
     @Override
@@ -41,10 +47,6 @@ public class TaskEditActivity extends AppCompatActivity implements View.OnClickL
         //ActivityFactory.InitFonts(this, controls.save_Button, CssManager.getEditButtonCss());
         //ActivityFactory.InitFonts(this, controls.cancel_Button, CssManager.getEditButtonCss());
         this.updateFieldsBySelectedRecord();
-    }
-
-    public static void setModel(TaskHistoryModel inModel){
-        model = inModel;
     }
 
 //    // Вызывается перед тем, как Активность перестает быть "видимой".
@@ -78,22 +80,50 @@ public class TaskEditActivity extends AppCompatActivity implements View.OnClickL
                 history.taskId = model.id;
                 DBHelper.getInstance().insertRecord(history);
             }
-            else{
+            else if(state == State.EDIT){
                 TaskModel model = new TaskModel();
                 Date lastDate = new Date();
                 model.name = controls.name_EditText.getText().toString();
                 model.lastDate = lastDate;
-                model.id = TaskListActivity.getSelectedTaskId();
+                model.id = TaskListActivity.getSelectedObject().taskId;
                 DBHelper.getInstance().editRecord(model);
 
-                TaskHistoryModel history = DBHelper.getRecordById(TaskHistoryModel.class, TaskListActivity.getSelectedId());
+                TaskHistoryModel history = TaskListActivity.getSelectedObject();
                 history.name = model.name;
                 history.lastDate = lastDate;
                 DBHelper.getInstance().updateRecord(history);
             }
+            else if(state == State.EDIT_HISTORY){
+                Date startDate = Tools.glueDateTime(controls.startDate_DateText.getDate(), controls.startTime_DateText.getDate());
+                Date endDate = Tools.glueDateTime(controls.endDate_DateText.getDate(), controls.endTime_DateText.getDate());
+                if(startDate.getTime() > endDate.getTime()){
+                    new MessageDialog(this, "АХТУНГ !!!","Че та, кажется - Время начала БОЛЬШЕ Времени завершения !!!");
+                    return;
+                }
+                TaskHistoryModel history = TaskHistoryActivity.getSelectedObject();
+                history.name = controls.name_EditText.getText().toString();
+                history.startDate = startDate;
+                history.endDate = endDate;
+                DBHelper.getInstance().editRecord(history);
+
+                TaskModel model = new TaskModel();
+                model.id = history.taskId;
+                DBController.updateLastDateForTask(model);
+            }
             TaskListActivity.refresh();
             this.finish();
         }
+        else if(v.idEquals(controls.startDate_DateText)){
+            new DatePickerDialogImpl(this, controls.startDate_DateText.getDate(), new EditDateFieldCommand(controls.startDate_DateText)).show();
+        }
+        else if(v.idEquals(controls.endDate_DateText)){
+            new DatePickerDialogImpl(this, controls.startDate_DateText.getDate(), new EditDateFieldCommand(controls.endDate_DateText)).show();
+        }
+        else if(v.idEquals(controls.startTime_DateText)){
+            new TimePickerDialogImpl(this, controls.startTime_DateText.getDate(), new EditDateFieldCommand(controls.startTime_DateText)).show();
+        }
+        else if(v.idEquals(controls.endTime_DateText)){
+            new TimePickerDialogImpl(this, controls.endTime_DateText.getDate(), new EditDateFieldCommand(controls.endTime_DateText)).show();        }
     }
 
     // Заполняем поля на форме по значениям выбранной записи
@@ -103,46 +133,26 @@ public class TaskEditActivity extends AppCompatActivity implements View.OnClickL
             controls.endDate_Row.setEnabled(false);
         }
         else if(state == State.EDIT){
-            TaskModel task = new TaskModel();
             try {
-                task = DBHelper.getRecordById(task, TaskListActivity.getSelectedTaskId());
-                controls.name_EditText.setText(task.name);
+                controls.name_EditText.setText(TaskListActivity.getSelectedObject().name);
             }catch(NullPointerException e){}
         }
-    }
+        else if(state == State.EDIT_HISTORY){
+            try {
+                controls.startDate_Label.setVisibility(View.VISIBLE);
+                controls.startDate_DateText.getView().setVisibility(View.VISIBLE);
+                controls.startTime_DateText.getView().setVisibility(View.VISIBLE);
+                controls.endDate_Label.setVisibility(View.VISIBLE);
+                controls.endDate_DateText.getView().setVisibility(View.VISIBLE);
+                controls.endTime_DateText.getView().setVisibility(View.VISIBLE);
+                TaskHistoryModel task = TaskHistoryActivity.getSelectedObject();
+                controls.name_EditText.setText(task.name);
+                controls.startDate_DateText.setDate(task.startDate);
+                controls.startTime_DateText.setDate(task.startDate);
+                controls.endDate_DateText.setDate(task.endDate);
+                controls.endTime_DateText.setDate(task.endDate);
 
-    private void updateRecord(TaskHistoryModel model){
-        DBHelper db = DBHelper.getInstance();
-
-//        FarmacyModel fModel = new FarmacyModel();
-//        fModel.volume = model.volume;
-//        fModel.name = model.name;
-//        fModel.lastDate = model.purchaseDate;
-//
-//        if(this.model != null){
-//            model.farmacyId = this.model.farmacyId;
-//            fModel.id = this.model.farmacyId;
-//        }
-//
-//        switch(state){
-//            case State.BUY:
-//                db.updateRecord(fModel);
-//                db.insertRecord(model);
-//                break;
-//            case State.ADD:
-//                db.insertRecord(fModel);
-//                fModel = db.getLastRecord(fModel);
-//                model.farmacyId = fModel.id;
-//                db.insertRecord(model);
-//                break;
-//            case State.EDIT:
-//                fModel.id = this.model.farmacyId;
-//                db.updateRecord(fModel);
-//
-//                model.id = this.model.id;
-//                model.farmacyId = this.model.farmacyId;
-//                db.updateRecord(model);
-//                break;
-//        }
+            }catch(NullPointerException e){}
+        }
     }
 }
