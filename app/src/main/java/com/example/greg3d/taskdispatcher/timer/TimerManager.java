@@ -9,7 +9,7 @@ public class TimerManager {
 
     private static Timer timer;
 
-    public static void startTimer(SpentTimerTask task){
+    public static void startTimer(SpentTimerTaskList task){
         if(timer == null)
             timer = new Timer();
         timer.schedule( task, 1000, 1000);

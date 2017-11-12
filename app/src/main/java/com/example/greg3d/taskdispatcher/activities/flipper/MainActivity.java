@@ -33,6 +33,9 @@ import com.example.greg3d.taskdispatcher.framework.factory.ActivityFactory;
 import com.example.greg3d.taskdispatcher.framework.helpers.ViewHelper;
 import com.example.greg3d.taskdispatcher.helpers.ActivitiesManager;
 import com.example.greg3d.taskdispatcher.helpers.DBHelper;
+import com.example.greg3d.taskdispatcher.timer.SpentTimerTaskList;
+import com.example.greg3d.taskdispatcher.timer.TimerManager;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -99,6 +102,7 @@ public class MainActivity extends AppCompatActivity
 
         hideFabs();
         hideHistoryFabs();
+        TimerManager.startTimer(new SpentTimerTaskList());
     }
 
     @Override

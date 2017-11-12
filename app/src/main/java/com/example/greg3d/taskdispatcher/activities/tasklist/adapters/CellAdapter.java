@@ -14,11 +14,9 @@ import com.example.greg3d.taskdispatcher.framework.factory.ActivityFactory;
 import com.example.greg3d.taskdispatcher.helpers.GridViewHelper;
 import com.example.greg3d.taskdispatcher.helpers.Tools;
 import com.example.greg3d.taskdispatcher.model.TaskHistoryModel;
-import com.example.greg3d.taskdispatcher.timer.SpentTimerTask;
+import com.example.greg3d.taskdispatcher.timer.SpentTimerTaskList;
 
-import java.util.Date;
 import java.util.List;
-import java.util.Timer;
 
 /**
  * Created by greg3d on 01.10.17.
@@ -67,8 +65,14 @@ public class CellAdapter extends ArrayAdapter<TaskHistoryModel>
             //controls.duration_DateView.setEmptyText();
             //controls.duration_DateView.setDate(Tools.getDifTime(cell.startDate, new Date()));
 
-            Timer timer = new Timer();
-            timer.schedule(new SpentTimerTask(controls.duration_DateView, new Date()), 1000, 1000);
+//            Timer timer = new Timer();
+//            timer
+//                    .schedule
+//                    //.scheduleAtFixedRate
+//                    (new SpentTimerTask(controls.duration_DateView, cell.startDate), 1000, 1000);
+
+            SpentTimerTaskList.startTimer(cell.id, controls.duration_DateView, cell.startDate);
+            //new Timer().schedule(new SpentTimerTask(controls.duration_DateView, cell.startDate), 1000,1000);
         }
         else if(cell.endDate.equals(cell.startDate)){
             controls.status_TextView.setText("не активна");
