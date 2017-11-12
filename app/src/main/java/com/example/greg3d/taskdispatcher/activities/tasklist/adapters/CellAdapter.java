@@ -14,9 +14,11 @@ import com.example.greg3d.taskdispatcher.framework.factory.ActivityFactory;
 import com.example.greg3d.taskdispatcher.helpers.GridViewHelper;
 import com.example.greg3d.taskdispatcher.helpers.Tools;
 import com.example.greg3d.taskdispatcher.model.TaskHistoryModel;
+import com.example.greg3d.taskdispatcher.timer.SpentTimerTask;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Timer;
 
 /**
  * Created by greg3d on 01.10.17.
@@ -56,15 +58,17 @@ public class CellAdapter extends ArrayAdapter<TaskHistoryModel>
         ActivityFactory.InitFonts(convertView.getContext(), controls);
 
         controls.startDate_DateView.setDate(cell.startDate);
-
-        setBackgroundResource(position, convertView, R.drawable.side_default_cell);
-
+        //setBackgroundResource(position, convertView, R.drawable.side_default_cell);
+        convertView.setBackgroundResource(R.drawable.side_default_cell);
         if(cell.activeState == State.IS_ACTIVE) {
-            setBackgroundResource(position, convertView, R.drawable.side_active_cell);
+            convertView.setBackgroundResource(R.drawable.side_active_cell);
             controls.endDate_DateView.setEmptyText();
             controls.status_TextView.setText("АКТИВНА");
             //controls.duration_DateView.setEmptyText();
-            controls.duration_DateView.setDate(Tools.getDifTime(cell.startDate, new Date()));
+            //controls.duration_DateView.setDate(Tools.getDifTime(cell.startDate, new Date()));
+
+            Timer timer = new Timer();
+            timer.schedule(new SpentTimerTask(controls.duration_DateView, new Date()), 1000, 1000);
         }
         else if(cell.endDate.equals(cell.startDate)){
             controls.status_TextView.setText("не активна");
@@ -84,12 +88,12 @@ public class CellAdapter extends ArrayAdapter<TaskHistoryModel>
         return convertView;
     }
 
-    private static void setBackgroundResource(int position, View convertView, int resourceId){
-        if(gridViewHelper != null)
-            if(gridViewHelper.isSelected() && gridViewHelper.getSelectedPosition() == position) {
-                convertView.setBackgroundResource(R.drawable.side_selected_cell);
-                return;
-            }
-        convertView.setBackgroundResource(resourceId);
-    }
+//    private static void setBackgroundResource(int position, View convertView, int resourceId){
+//        if(gridViewHelper != null)
+//            if(gridViewHelper.isSelected() && gridViewHelper.getSelectedPosition() == position) {
+//                convertView.setBackgroundResource(R.drawable.side_selected_cell);
+//                return;
+//            }
+//        convertView.setBackgroundResource(resourceId);
+//    }
 }

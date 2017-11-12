@@ -9,16 +9,22 @@ public class TimerManager {
 
     private static Timer timer;
 
-    public static void startTimer(){
+    public static void startTimer(SpentTimerTask task){
         if(timer == null)
             timer = new Timer();
-        timer.schedule( new MissingTimerTask(), 1000, 1000);
+        timer.schedule( task, 1000, 1000);
     }
 
-    public static void stopTimer(){
-        if(timer != null) {
-            timer.cancel();
-            timer = null;
-        }
-    }
+//    public static void startTimer(){
+////        if(timer == null)
+////            timer = new Timer();
+////        timer.schedule( new MissingTimerTask(), 1000, 1000);
+//    }
+
+//    public static void stopTimer(){
+////        if(timer != null) {
+////            timer.cancel();
+////            timer = null;
+////        }
+//    }
 }
