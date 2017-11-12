@@ -1,7 +1,7 @@
 package com.example.greg3d.taskdispatcher.activities.tasklist.controls;
 
-import android.support.design.widget.FloatingActionButton;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.greg3d.taskdispatcher.R;
 import com.example.greg3d.taskdispatcher.css.EditButtonCss;
@@ -13,6 +13,9 @@ import com.example.greg3d.taskdispatcher.framework.annotations.FindBy;
  */
 
 public class Controls {
+
+    @FindBy(R.id.tl_Title)
+    public TextView title_TextView;
 
     @CSS(EditButtonCss.class)
     @FindBy(R.id.tl_add_button)

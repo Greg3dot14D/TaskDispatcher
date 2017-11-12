@@ -94,7 +94,7 @@
             <TextView
                 android:id="@+id/t_Status_Label"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:layout_marginLeft="11dp"
                 android:textStyle="italic"
                 android:text="Состояние"
@@ -103,7 +103,7 @@
             <TextView
                 android:id="@+id/t_Status"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:layout_marginLeft="11dp"
                 android:textStyle="bold|italic"
                 android:text="не активна"

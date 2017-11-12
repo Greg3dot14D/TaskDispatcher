@@ -37,4 +37,9 @@ public class HistoryControls {
         this.delete_Fab.show();
     }
 
+    public void setAnimationStartOffset(long offset){
+        this.hide_Fab.setAnimationStartOffset(offset);
+        this.edit_Fab.setAnimationStartOffset(offset);
+        this.delete_Fab.setAnimationStartOffset(offset);
+    }
 }

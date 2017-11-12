@@ -11,9 +11,11 @@ import com.example.greg3d.taskdispatcher.activities.tasklist.controls.TaskHistor
 import com.example.greg3d.taskdispatcher.constants.State;
 import com.example.greg3d.taskdispatcher.controller.DBController;
 import com.example.greg3d.taskdispatcher.framework.factory.ActivityFactory;
+import com.example.greg3d.taskdispatcher.helpers.GridViewHelper;
 import com.example.greg3d.taskdispatcher.helpers.Tools;
 import com.example.greg3d.taskdispatcher.model.TaskHistoryModel;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -21,6 +23,13 @@ import java.util.List;
  */
 public class CellAdapter extends ArrayAdapter<TaskHistoryModel>
 {
+    private static GridViewHelper gridViewHelper;
+
+    public CellAdapter(Context context, GridViewHelper gridViewHelper) {
+        super(context, R.layout.task_cell, getData());
+        this.gridViewHelper = gridViewHelper;
+    }
+
     public CellAdapter(Context context) {
         super(context, R.layout.task_cell, getData());
     }
@@ -36,10 +45,10 @@ public class CellAdapter extends ArrayAdapter<TaskHistoryModel>
         if (convertView == null)
             convertView = LayoutInflater.from(getContext())
                     .inflate(R.layout.task_cell, null);
-        return getView(convertView, cell);
+        return getView(position, convertView, cell);
     }
 
-    public static View getView(View convertView, TaskHistoryModel cell) {
+    public static View getView(int position, View convertView, TaskHistoryModel cell) {
 
         TaskHistoryView controls = new TaskHistoryView();
 
@@ -47,12 +56,15 @@ public class CellAdapter extends ArrayAdapter<TaskHistoryModel>
         ActivityFactory.InitFonts(convertView.getContext(), controls);
 
         controls.startDate_DateView.setDate(cell.startDate);
-        convertView.setBackgroundResource(R.drawable.side_default_cell);
+
+        setBackgroundResource(position, convertView, R.drawable.side_default_cell);
+
         if(cell.activeState == State.IS_ACTIVE) {
-            convertView.setBackgroundResource(R.drawable.side_active_cell);
+            setBackgroundResource(position, convertView, R.drawable.side_active_cell);
             controls.endDate_DateView.setEmptyText();
             controls.status_TextView.setText("АКТИВНА");
-            controls.duration_DateView.setEmptyText();
+            //controls.duration_DateView.setEmptyText();
+            controls.duration_DateView.setDate(Tools.getDifTime(cell.startDate, new Date()));
         }
         else if(cell.endDate.equals(cell.startDate)){
             controls.status_TextView.setText("не активна");
@@ -70,5 +82,14 @@ public class CellAdapter extends ArrayAdapter<TaskHistoryModel>
         controls.name_TextView.setText(cell.name);
         // TODO
         return convertView;
+    }
+
+    private static void setBackgroundResource(int position, View convertView, int resourceId){
+        if(gridViewHelper != null)
+            if(gridViewHelper.isSelected() && gridViewHelper.getSelectedPosition() == position) {
+                convertView.setBackgroundResource(R.drawable.side_selected_cell);
+                return;
+            }
+        convertView.setBackgroundResource(resourceId);
     }
 }

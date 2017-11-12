@@ -29,6 +29,6 @@ public class CellAdapter extends ArrayAdapter<TaskHistoryModel>
                     .inflate(R.layout.task_cell, null);
 
         return com.example.greg3d.taskdispatcher.activities.tasklist.adapters.CellAdapter
-                .getView(convertView, cell);
+                .getView(position, convertView, cell);
     }
 }

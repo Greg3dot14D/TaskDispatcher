@@ -44,4 +44,19 @@ public class FabView<T extends TextView> extends BaseElement implements ISetAnim
         if(this.hideAnimation != null)
             this.getWrappedElement().startAnimation(this.hideAnimation);
     }
+
+    public Animation getHideAnimation(){
+        return this.hideAnimation;
+    }
+
+    public Animation getShowAnimation(){
+        return this.showAnimation;
+    }
+
+    public void setAnimationStartOffset(long offset){
+        if(this.showAnimation != null)
+            this.showAnimation.setStartOffset(offset);
+        if(this.hideAnimation != null)
+            this.hideAnimation.setStartOffset(offset);
+    }
 }

@@ -33,6 +33,7 @@ import com.example.greg3d.taskdispatcher.framework.factory.ActivityFactory;
 import com.example.greg3d.taskdispatcher.framework.helpers.ViewHelper;
 import com.example.greg3d.taskdispatcher.helpers.ActivitiesManager;
 import com.example.greg3d.taskdispatcher.helpers.DBHelper;
+import com.example.greg3d.taskdispatcher.timer.TimerManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -102,6 +103,7 @@ public class MainActivity extends AppCompatActivity
 
         hideFabs();
         hideHistoryFabs();
+        TimerManager.startTimer();
     }
 
     @Override
@@ -181,37 +183,44 @@ public class MainActivity extends AppCompatActivity
         else if(v.idEquals(historyControls.delete_Fab)){
             new YesNoDialog(this, new DeleteHistoryCommand(), "Удаляем запись из истории ?").show();
         }
-
         taskListActivity.onClick(this, view);
         taskHistoryActivity.onClick(this, view);
     }
 
     public static void showFabs(){
+        TimerManager.stopTimer();
         if(!controls.isShown) {
             controls.showControls();
             controls.isShown = true;
         }
+        TimerManager.startTimer();
     }
 
     public static void showHistoryFabs(){
+        TimerManager.stopTimer();
         if(!historyControls.isShown) {
             historyControls.showControls();
             historyControls.isShown = true;
         }
+        TimerManager.startTimer();
     }
 
     private void hideFabs(){
+        TimerManager.stopTimer();
         if(controls.isShown) {
             controls.hideControls();
             controls.isShown = false;
         }
+        TimerManager.startTimer();
     }
 
     private void hideHistoryFabs(){
+        TimerManager.stopTimer();
         if(historyControls.isShown) {
             historyControls.hideControls();
             historyControls.isShown = false;
         }
+        TimerManager.startTimer();
     }
 
     private static class OnChangePage implements ViewPager.OnPageChangeListener {
@@ -230,16 +239,27 @@ public class MainActivity extends AppCompatActivity
         @Override
         public void onPageSelected(int position) {
             if(position == 1) {
-                if(controls.isShown)
+                //TimerManager.stopTimer();
+                if(controls.isShown) {
+                    controls.setAnimationStartOffset(0);
                     controls.hideControls();
-                if(historyControls.isShown)
+                }
+                if(historyControls.isShown) {
+                    historyControls.setAnimationStartOffset(500);
                     historyControls.showControls();
+                }
             }
             else if(position == 0) {
-                if (controls.isShown)
+                //TimerManager.stopTimer();
+                if (controls.isShown) {
+                    controls.setAnimationStartOffset(500);
                     controls.showControls();
-                if (historyControls.isShown)
+                }
+                if (historyControls.isShown) {
+                    historyControls.setAnimationStartOffset(0);
                     historyControls.hideControls();
+                }
+                //TimerManager.startTimer();
             }
         }
 

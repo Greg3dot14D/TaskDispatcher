@@ -42,5 +42,10 @@ public class MainControls {
         this.edit_Fab.show();
         this.delete_Fab.show();
     }
-
+    public void setAnimationStartOffset(long offset){
+        this.hide_Fab.setAnimationStartOffset(offset);
+        this.add_Fab.setAnimationStartOffset(offset);
+        this.edit_Fab.setAnimationStartOffset(offset);
+        this.delete_Fab.setAnimationStartOffset(offset);
+    }
 }

@@ -1,6 +1,7 @@
 package com.example.greg3d.taskdispatcher.activities.taskhistory.controls;
 
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.greg3d.taskdispatcher.R;
 import com.example.greg3d.taskdispatcher.constants.DateFormats;
@@ -23,4 +24,8 @@ public class Controls {
     @FindBy(R.id.h_Filter)
     @DateFormated(DateFormats.MONTH_YEAR_FORMAT)
     public FormatedDateView filter_DateView;
+
+    @FindBy(R.id.h_Title)
+    public TextView title_TextView;
+
 }

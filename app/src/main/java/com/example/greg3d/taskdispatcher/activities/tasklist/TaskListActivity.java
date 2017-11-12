@@ -80,10 +80,12 @@ public class TaskListActivity extends Activity implements View.OnClickListener{
         @Override
         public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
             //this.activity.startActionMode(new ActionBarCallBack(this.activity));
+            //TimerManager.stopTimer();
             MainActivity.showFabs();
             gridView.getCellHelper().resetSelect();
             gridView.getCellHelper().setSelect(view, l);
             gridView.setSelected(i);
+            //TimerManager.startTimer();
             return false;
         }
     }
@@ -157,6 +159,8 @@ public class TaskListActivity extends Activity implements View.OnClickListener{
             else
                 new YesNoDialog(activity, new StopCommand(), "Останавливаем задачку ?").show();
         }
+        else if(v.idEquals(controls.title_TextView))
+            MainActivity.showFabs();
     }
 
     private boolean isStarted(){
@@ -177,6 +181,10 @@ public class TaskListActivity extends Activity implements View.OnClickListener{
 
     public static TaskHistoryModel getSelectedObject(){
         return (TaskHistoryModel)instance.gridView.getSelectedObject();
+    }
+
+    public void refreshDif(){
+        this.gridView.setAdapter(new CellAdapter(view.getContext(), this.gridView));
     }
 
     public static void refresh(){
