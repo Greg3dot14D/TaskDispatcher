@@ -44,6 +44,7 @@ public class CellAdapter extends ArrayAdapter<TaskHistoryModel>
         TaskHistoryView controls = new TaskHistoryView();
 
         ActivityFactory.InitActivity(convertView, controls);
+        ActivityFactory.InitFonts(convertView.getContext(), controls);
 
         controls.startDate_DateView.setDate(cell.startDate);
         convertView.setBackgroundResource(R.drawable.side_default_cell);

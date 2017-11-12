@@ -8,4 +8,5 @@ public abstract class Fonts {
     public static final String DIGITAL = "fonts/ds-digital-bold.ttf";
     public static final String BRAGLEY = "fonts/bradley-gratis.ttf";
     public static final String MILITARY = "fonts/stencil.ttf";
+    public static final String LCD_MONO = "fonts/lcdmono-normal.ttf";
 }

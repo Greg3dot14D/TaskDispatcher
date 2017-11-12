@@ -36,7 +36,7 @@ public class FormatedDateView <T extends TextView> extends BaseElement implement
 
     public void setEmptyText(){
         // "HH:mm:ss yyyy-MM-dd"
-        String e = "_";
+        String e = "-";
         getWrappedElement().setText(this.dateFormat
                 .replace("H",e)
                 .replace("m",e)
