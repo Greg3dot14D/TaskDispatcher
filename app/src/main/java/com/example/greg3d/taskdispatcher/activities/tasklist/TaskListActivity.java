@@ -85,7 +85,7 @@ public class TaskListActivity extends Activity implements View.OnClickListener{
             gridView.getCellHelper().resetSelect();
             gridView.getCellHelper().setSelect(view, l);
             gridView.setSelected(i);
-            //TimerManager.startTimer();
+            //TimerManager.addTimer();
             return false;
         }
     }
@@ -159,8 +159,8 @@ public class TaskListActivity extends Activity implements View.OnClickListener{
             else
                 new YesNoDialog(activity, new StopCommand(), "Останавливаем задачку ?").show();
         }
-        else if(v.idEquals(controls.title_TextView))
-            MainActivity.showFabs();
+//        else if(v.idEquals(controls.title_TextView))
+//            MainActivity.showFabs();
     }
 
     private boolean isStarted(){

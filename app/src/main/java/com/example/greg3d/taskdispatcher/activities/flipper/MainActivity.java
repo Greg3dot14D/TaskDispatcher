@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity
         pager.addOnPageChangeListener(new OnChangePage(controls, historyControls));
 
         hideFabs();
-        hideHistoryFabs();
+        historyControls.closeControls();
         TimerManager.startTimer(new SpentTimerTaskList());
     }
 
@@ -158,10 +158,16 @@ public class MainActivity extends AppCompatActivity
     public void onClick(View view) {
         ViewHelper v = new ViewHelper(view);
         if(v.idEquals(controls.hide_Fab)){
-            hideFabs();
+            if(controls.isShown)
+                hideFabs();
+            else
+                showFabs();
         }
         if(v.idEquals(historyControls.hide_Fab)){
-            hideHistoryFabs();
+            if(historyControls.isShown)
+                hideHistoryFabs();
+            else
+                showHistoryFabs();
         }
         else if(v.idEquals(controls.edit_Fab) && TaskListActivity.getInstance().isSelected()){
             TaskEditActivity.state = State.EDIT;
@@ -232,22 +238,22 @@ public class MainActivity extends AppCompatActivity
             if(position == 1) {
                 if(controls.isShown) {
                     controls.setAnimationStartOffset(0);
-                    controls.hideControls();
                 }
                 if(historyControls.isShown) {
                     historyControls.setAnimationStartOffset(500);
-                    historyControls.showControls();
                 }
+                controls.closeControls();
+                historyControls.openControls();
             }
             else if(position == 0) {
                 if (controls.isShown) {
                     controls.setAnimationStartOffset(500);
-                    controls.showControls();
                 }
                 if (historyControls.isShown) {
                     historyControls.setAnimationStartOffset(0);
-                    historyControls.hideControls();
                 }
+                controls.openControls();
+                historyControls.closeControls();
             }
         }
 

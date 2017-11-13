@@ -16,6 +16,7 @@ import com.example.greg3d.taskdispatcher.helpers.Tools;
 import com.example.greg3d.taskdispatcher.model.TaskHistoryModel;
 import com.example.greg3d.taskdispatcher.timer.SpentTimerTaskList;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -58,20 +59,20 @@ public class CellAdapter extends ArrayAdapter<TaskHistoryModel>
         controls.startDate_DateView.setDate(cell.startDate);
         //setBackgroundResource(position, convertView, R.drawable.side_default_cell);
         convertView.setBackgroundResource(R.drawable.side_default_cell);
+        SpentTimerTaskList.removeTimer(cell.taskId);
         if(cell.activeState == State.IS_ACTIVE) {
             convertView.setBackgroundResource(R.drawable.side_active_cell);
             controls.endDate_DateView.setEmptyText();
             controls.status_TextView.setText("АКТИВНА");
             //controls.duration_DateView.setEmptyText();
-            //controls.duration_DateView.setDate(Tools.getDifTime(cell.startDate, new Date()));
+            controls.duration_DateView.setDate(Tools.getDifTime(cell.startDate, new Date()));
 
 //            Timer timer = new Timer();
 //            timer
 //                    .schedule
 //                    //.scheduleAtFixedRate
 //                    (new SpentTimerTask(controls.duration_DateView, cell.startDate), 1000, 1000);
-
-            SpentTimerTaskList.startTimer(cell.id, controls.duration_DateView, cell.startDate);
+            SpentTimerTaskList.addTimer(cell.taskId, controls.duration_DateView, cell.startDate);
             //new Timer().schedule(new SpentTimerTask(controls.duration_DateView, cell.startDate), 1000,1000);
         }
         else if(cell.endDate.equals(cell.startDate)){

@@ -12,19 +12,20 @@ public class TimerManager {
     public static void startTimer(SpentTimerTaskList task){
         if(timer == null)
             timer = new Timer();
-        timer.schedule( task, 1000, 1000);
+        //timer.schedule( task, 1000, 1000);
+        timer.scheduleAtFixedRate(task, 1000, 1000);
     }
 
-//    public static void startTimer(){
+//    public static void addTimer(){
 ////        if(timer == null)
 ////            timer = new Timer();
 ////        timer.schedule( new MissingTimerTask(), 1000, 1000);
 //    }
 
-//    public static void stopTimer(){
-////        if(timer != null) {
-////            timer.cancel();
-////            timer = null;
-////        }
-//    }
+    public static void stopTimer(){
+        if(timer != null) {
+            timer.cancel();
+            timer = null;
+        }
+    }
 }

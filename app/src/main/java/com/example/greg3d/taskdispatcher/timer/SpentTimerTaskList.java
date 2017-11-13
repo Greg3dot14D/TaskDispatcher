@@ -13,11 +13,22 @@ import java.util.TimerTask;
  */
 public class SpentTimerTaskList extends TimerTask {
 
-    private static HashMap<Integer, TimerObject> timerObjectMap = new HashMap<>();
+    private static HashMap<Integer, TimerObject> timerObjectMap;
 
-    public static void startTimer(int id, FormatedDateView daterTimeView, Date startDate){
-        TimerObject timerObject = new TimerObject(daterTimeView, startDate);
-        timerObjectMap.put(id, timerObject);
+    public SpentTimerTaskList(){
+        timerObjectMap = new HashMap<>();
+    }
+
+    public static void addTimer(int id, FormatedDateView daterTimeView, Date startDate){
+        if(timerObjectMap == null)
+            return;
+        timerObjectMap.put(id, new TimerObject(daterTimeView, startDate));
+    }
+
+    public static void removeTimer(int id){
+        if(timerObjectMap == null)
+            return;
+        timerObjectMap.remove(id);
     }
 
     public static class TimerObject{
@@ -42,6 +53,5 @@ public class SpentTimerTaskList extends TimerTask {
                 //daterTimeView.setDate(Tools.getDifTime(startDate, new Date()));
             }
         });
-
     }
 }

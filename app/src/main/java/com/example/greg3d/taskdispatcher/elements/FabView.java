@@ -30,7 +30,7 @@ public class FabView<T extends TextView> extends BaseElement implements ISetAnim
         this.showAnimation = showAnimation;
     }
 
-    private FloatingActionButton getWrappedElement(){ return (FloatingActionButton)this.view;}
+    public FloatingActionButton getWrappedElement(){ return (FloatingActionButton)this.view;}
 
     public void show(){
         this.getWrappedElement().setClickable(true);

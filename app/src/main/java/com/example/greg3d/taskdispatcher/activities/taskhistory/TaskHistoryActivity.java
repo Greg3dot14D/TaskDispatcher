@@ -82,8 +82,8 @@ public class TaskHistoryActivity extends Activity implements View.OnClickListene
         ViewHelper v = new ViewHelper(view);
         if(v.idEquals(controls.filter_DateView))
             new DatePickerDialogImpl(activity, getFilter(), new FilterByMonthCommand()).show();
-        else if(v.idEquals(controls.title_TextView))
-            MainActivity.showHistoryFabs();
+//        else if(v.idEquals(controls.title_TextView))
+//            MainActivity.showHistoryFabs();
     }
 
     private static class GridViewListener implements AdapterView.OnItemLongClickListener{
