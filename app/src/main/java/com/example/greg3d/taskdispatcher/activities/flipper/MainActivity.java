@@ -33,8 +33,6 @@ import com.example.greg3d.taskdispatcher.framework.factory.ActivityFactory;
 import com.example.greg3d.taskdispatcher.framework.helpers.ViewHelper;
 import com.example.greg3d.taskdispatcher.helpers.ActivitiesManager;
 import com.example.greg3d.taskdispatcher.helpers.DBHelper;
-import com.example.greg3d.taskdispatcher.timer.SpentTimerTaskList;
-import com.example.greg3d.taskdispatcher.timer.TimerManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -101,8 +99,9 @@ public class MainActivity extends AppCompatActivity
         pager.addOnPageChangeListener(new OnChangePage(controls, historyControls));
 
         hideFabs();
+        hideHistoryFabs();
         historyControls.closeControls();
-        TimerManager.startTimer(new SpentTimerTaskList());
+        //TimerManager.startTimer(new SpentTimerTaskList());
     }
 
     @Override
@@ -195,29 +194,33 @@ public class MainActivity extends AppCompatActivity
     public static void showFabs(){
         if(!controls.isShown) {
             controls.showControls();
-            controls.isShown = true;
         }
+        controls.setAnimationStartOffset(0);
+        controls.isShown = true;
     }
 
     public static void showHistoryFabs(){
         if(!historyControls.isShown) {
             historyControls.showControls();
-            historyControls.isShown = true;
         }
+        historyControls.setAnimationStartOffset(0);
+        historyControls.isShown = true;
     }
 
     private void hideFabs(){
         if(controls.isShown) {
             controls.hideControls();
-            controls.isShown = false;
         }
+        controls.setAnimationStartOffset(0);
+        controls.isShown = false;
     }
 
     private void hideHistoryFabs(){
         if(historyControls.isShown) {
             historyControls.hideControls();
-            historyControls.isShown = false;
         }
+        historyControls.setAnimationStartOffset(0);
+        historyControls.isShown = false;
     }
 
     private static class OnChangePage implements ViewPager.OnPageChangeListener {
@@ -236,22 +239,14 @@ public class MainActivity extends AppCompatActivity
         @Override
         public void onPageSelected(int position) {
             if(position == 1) {
-                if(controls.isShown) {
-                    controls.setAnimationStartOffset(0);
-                }
-                if(historyControls.isShown) {
-                    historyControls.setAnimationStartOffset(500);
-                }
-                controls.closeControls();
+                controls.setAnimationStartOffset(0);
+                historyControls.setAnimationStartOffset(500);
                 historyControls.openControls();
+                controls.closeControls();
             }
             else if(position == 0) {
-                if (controls.isShown) {
-                    controls.setAnimationStartOffset(500);
-                }
-                if (historyControls.isShown) {
-                    historyControls.setAnimationStartOffset(0);
-                }
+                historyControls.setAnimationStartOffset(0);
+                controls.setAnimationStartOffset(500);
                 controls.openControls();
                 historyControls.closeControls();
             }

@@ -40,7 +40,11 @@ public class FabView<T extends TextView> extends BaseElement implements ISetAnim
     }
 
     public void hide(){
+        this.flip();
         this.getWrappedElement().setClickable(false);
+    }
+
+    public void flip(){
         if(this.hideAnimation != null)
             this.getWrappedElement().startAnimation(this.hideAnimation);
     }

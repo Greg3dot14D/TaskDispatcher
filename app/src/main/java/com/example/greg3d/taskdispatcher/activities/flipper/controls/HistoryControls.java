@@ -15,7 +15,7 @@ public class HistoryControls {
 
     public boolean isShown = true;
 
-    //@Animation(show = R.anim.fab_show, hide = R.anim.fab_hide)
+    @Animation(show = R.anim.fab_show, hide = R.anim.fab_hide)
     @FindBy(R.id.fab_history_hide)
     public FabView hide_Fab;
 
@@ -31,24 +31,26 @@ public class HistoryControls {
         if(isShown)
             this.hideControls();
         this.hide_Fab.getWrappedElement().setVisibility(View.INVISIBLE);
+        this.hide_Fab.getWrappedElement().setClickable(false);
     }
 
     public void openControls(){
         if(isShown)
             this.showControls();
         this.hide_Fab.getWrappedElement().setVisibility(View.VISIBLE);
+        this.hide_Fab.getWrappedElement().setClickable(true);
     }
 
     public void hideControls(){
-        this.hide_Fab.getWrappedElement().setAlpha(new Float(0.5));
-        //this.hide_Fab.hide();
+        //this.hide_Fab.getWrappedElement().setAlpha(new Float(0.5));
+        this.hide_Fab.flip();
         this.edit_Fab.hide();
         this.delete_Fab.hide();
     }
 
     public void showControls(){
-        this.hide_Fab.getWrappedElement().setAlpha(new Float(1));
-        //this.hide_Fab.show();
+        //this.hide_Fab.getWrappedElement().setAlpha(new Float(1));
+        this.hide_Fab.show();
         this.edit_Fab.show();
         this.delete_Fab.show();
     }
